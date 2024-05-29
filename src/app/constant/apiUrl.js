@@ -1,0 +1,1 @@
+export const API_URL= "https://6566e6c264fcff8d730f450c.mockapi.io/redux-data"
