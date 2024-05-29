@@ -14,8 +14,8 @@ import rootReducer from ".";
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
+  middleware: (mid) =>
+  mid({
       serializableCheck: false,
     }).concat(rootReducer.middleware),
 });

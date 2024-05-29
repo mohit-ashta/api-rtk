@@ -16,7 +16,7 @@ export default function UserForm() {
   const [editing, setEditing] = useState(false);
   const [editingId, setEditingId] = useState(null);
 
-  const {data,refetch } = useGetUsersQuery("getUsersDetails");
+  const {data } = useGetUsersQuery("getUsersDetails");
   const [updateUser] = useUpdateUserMutation();
   const [addUser] = useAddUserMutation();
   const [deleteUser] = useDeleteUserMutation();
@@ -36,20 +36,18 @@ export default function UserForm() {
 
     if (editingId) {
       try {
-        await updateUser({ id: editingId, data: userForm });
+        await updateUser({ id: editingId, data: userForm })
         setEditing(false);
         setEditingId(null);
         setFormData(initialData);
-        refetch(); // Refetch data after update
       } catch (error) {
         console.error("Error updating user:", error);
         alert("Error updating user. Please try again.");
       }
     } else {
       try {
-        await addUser(userForm);
+        await addUser(userForm)
         setFormData(initialData);
-        refetch(); // Refetch data after addition
       } catch (error) {
         console.error("Error adding user:", error);
         alert("Error adding user. Please try again.");
@@ -70,8 +68,7 @@ export default function UserForm() {
 
   const handleDelete = async (id) => {
     try {
-      await deleteUser(id);
-      refetch();
+      await deleteUser(id)
     } catch (error) {
       console.error("Error deleting user:", error);
       alert("Error deleting user. Please try again.");
@@ -138,6 +135,11 @@ export default function UserForm() {
   <table className="table-auto w-full bg-white shadow rounded">
     <thead className="border-b border-gray-100">
       <tr>
+      <th className="pl-6 py-6">
+          <a className="flex items-center text-xs text-gray-500" href="#">
+            <p>Sr.No.</p>
+          </a>
+        </th>
         <th className="pl-6 py-6">
           <a className="flex items-center text-xs text-gray-500" href="#">
             <p>Firt Name</p>
@@ -167,11 +169,12 @@ export default function UserForm() {
     </thead>
     <tbody>
 
-      {getUser?.map((user) => {
+      {getUser?.map((user,id) => {
 
 
 return(
   <tr key={user.id} className="text-xs bg-blue-50 border-b border-gray-100">
+     <td className="pl-6 py-6 bg-blue-100">{id+1}</td>
   <td className="pl-6 py-6 bg-blue-100">{user.firstName}</td>
   <td className="pl-6">{user.lastName}</td>
   <td> {user.email}</td>
